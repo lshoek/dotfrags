@@ -1,3 +1,6 @@
+// Author @lesleyvanhoek (lesleyvanhoek.nl) - 2017
+// Title: Spinner
+
 #ifdef GL_ES
 precision mediump float;
 #endif

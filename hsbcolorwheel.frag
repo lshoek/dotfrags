@@ -1,3 +1,6 @@
+// Author @lesleyvanhoek (lesleyvanhoek.nl) - 2017
+// Title: Rainbow Wheel
+
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -43,8 +46,8 @@ void main()
     
     // Mix colors and plots
     color = hsb2rgb(vec3(ypolar+(u_time*0.25), radius, 1.0));
-    color = mix(color, vec3(1.0), pct0);
-    color = mix(color, vec3(1.0), pct1);
+    //color = mix(color, vec3(1.0), pct0);
+    //color = mix(color, vec3(1.0), pct1);
     
     gl_FragColor = vec4(color, 1.0);
 }
