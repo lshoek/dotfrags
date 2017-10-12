@@ -1,5 +1,5 @@
 // Author @lesleyvanhoek (lesleyvanhoek.nl) - 2017
-// Title: Tartan
+// Title: Modern Tartan
 
 #ifdef GL_ES
 precision mediump float;
@@ -44,13 +44,17 @@ float stripe(float p, float w0, float w1, float offset)
 
 void main()
 {
-    vec2 st = gl_FragCoord.xy/u_resolution;   
-    float tiles = 1.0;
+    vec2 st = gl_FragCoord.xy/u_resolution;
+    float time = u_time/2.5;
     float stripeoffset = u_time/25.0;
-    float thickness = 0.03;
+    float thickness = -0.030;
+    float tiles = 1.25;
     
     float row = floor(st.y*tiles);
-    float column = floor(st.x*tiles);  
+    float column = floor(st.x*tiles);
+    
+    vec2 translate = vec2(time*3.0, sin(time*1.5));
+    st += translate*0.1;
     
     vec2 grid = tile(st, tiles);    
     vec2 offset = vec2(0.2, 0.0);
