@@ -2,7 +2,7 @@
 // Title: Modern Tartan
 
 #ifdef GL_ES
-precision mediump float;
+precision highp float;
 #endif
 
 #define inv(x) 1.0 - x
