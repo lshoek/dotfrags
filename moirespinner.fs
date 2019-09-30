@@ -1,5 +1,5 @@
 // Author @lesleyvanhoek (lesleyvanhoek.nl) - 2017
-// Title: Spinner
+// Title: Moiré Spinner
 
 #ifdef GL_ES
 precision highp float;
@@ -8,6 +8,7 @@ precision highp float;
 #define inv(x) 1.0 - x
 #define PI     3.14159265359
 #define TWO_PI 6.28318530718
+#define PEAKS 512.0
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -24,42 +25,23 @@ float shape(vec2 st, vec2 pos, float radius, float angle)
     vec2 tp = pos - st;
     float r = (length(tp) * 2.0) / (radius * 2.0);
     float a = atan(tp.y, tp.x) + angle;
-    float f = cos(a * 3.0) + 1.9;
+    
+    float peaks = (angle+PI/2.0)/TWO_PI*PEAKS;
+    float f = cos(a * floor(peaks)) + 2.0;
+    
     return smoothstep(f+f*0.01, f-f*0.01, r);
 }
 
 void main()
 {
-	vec2 st = gl_FragCoord.xy/u_resolution;
+    vec2 st = gl_FragCoord.xy/u_resolution;
     vec2 mouse = u_mouse / u_resolution;
-	vec2 center = vec2(0.5);
-    vec2 mousedir = mouse - center;
- 	float angle = -atan(mousedir.y, mousedir.x);
+    vec2 center = vec2(0.5);
     
-    float offset = 0.5;
-    vec2 rot0 = center + vec2(sin(angle + offset), 
-                                 cos(angle + offset)) * 0.3;
-    vec2 rot1 = center + vec2(sin(angle+TWO_PI*(1.0/3.0) + offset), 
-                                 cos(angle +TWO_PI*(1.0/3.0) + offset)) * 0.3;
-    vec2 rot2 = center + vec2(sin(angle+TWO_PI*(2.0/3.0) + offset), 
-                                 cos(angle +TWO_PI*(2.0/3.0) + offset)) * 0.3;
-    
-    float holes = circle(st, rot0, 0.025);
-    holes += circle(st, rot1, 0.025);
-    holes += circle(st, rot2, 0.025);
-    holes -= circle(st, rot0, 0.015);
-    holes -= circle(st, rot1, 0.015);
-    holes -= circle(st, rot2, 0.015);
-    holes += circle(st, rot0, 0.005);
-    holes += circle(st, rot1, 0.005);
-    holes += circle(st, rot2, 0.005);
+    vec2 mousedir = normalize(mouse - center);
+    float angle = -atan(mousedir.y, mousedir.x);
     
     float pct = shape(st, center, 0.15, angle);
-    pct -= circle(st, center, 0.03);
-    pct += circle(st, center, 0.020);
-    
-    pct -= holes;
-    
     vec3 color = pct * vec3(1.000,0.492,0.328);  
-	gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }
