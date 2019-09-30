@@ -26,7 +26,7 @@ float shape(vec2 st, vec2 pos, float radius, float angle)
     float r = (length(tp) * 2.0) / (radius * 2.0);
     float a = atan(tp.y, tp.x) + angle;
     
-    float peaks = (angle+PI/2.0)/TWO_PI*PEAKS;
+    float peaks = angle/TWO_PI*PEAKS;
     float f = cos(a * floor(peaks)) + 2.0;
     
     return smoothstep(f+f*0.01, f-f*0.01, r);
@@ -34,14 +34,14 @@ float shape(vec2 st, vec2 pos, float radius, float angle)
 
 void main()
 {
-    vec2 st = gl_FragCoord.xy/u_resolution;
+	vec2 st = gl_FragCoord.xy/u_resolution;
     vec2 mouse = u_mouse / u_resolution;
-    vec2 center = vec2(0.5);
+	vec2 center = vec2(0.5);
     
     vec2 mousedir = normalize(mouse - center);
-    float angle = -atan(mousedir.y, mousedir.x);
+ 	float angle = -atan(mousedir.y, mousedir.x);
     
     float pct = shape(st, center, 0.15, angle);
     vec3 color = pct * vec3(1.000,0.492,0.328);  
-    gl_FragColor = vec4(color, 1.0);
+	gl_FragColor = vec4(color, 1.0);
 }
