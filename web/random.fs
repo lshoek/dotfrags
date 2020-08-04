@@ -71,6 +71,6 @@ void main()
     
     // mix result
     float res0 = clamp(pct0, 0.0, 1.0);
-    vec3 col = mix(u_color_0, u_color_1, res0);
+    vec3 col = mix(u_color0, u_color1, res0);
     gl_FragColor = vec4(col, 1.0);
 }
