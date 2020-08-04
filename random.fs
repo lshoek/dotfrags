@@ -10,7 +10,7 @@ precision highp float;
 #define PI     3.14159265359
 #define TWO_PI 6.28318530718
 
-#define CARMINE_PINK vec3(0.9, 0.3, 0.3)
+#define CARMINE_PINK vec3(0.952, 0.145, 0.031)
 #define PLATINUM vec3(0.929, 0.901, 0.890)
 
 uniform vec2 u_resolution;
