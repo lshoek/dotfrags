@@ -10,11 +10,10 @@ precision highp float;
 #define PI     3.14159265359
 #define TWO_PI 6.28318530718
 
-#define PINK vec3(0.945, 0.760, 0.780)
-#define PLATINUM vec3(0.929, 0.901, 0.890)
-
 uniform vec2 u_resolution;
 uniform float u_time;
+uniform vec3 u_color0;
+uniform vec3 u_color1;
 
 vec2 tile(vec2 st, float zoom)
 {
@@ -72,6 +71,6 @@ void main()
     
     // mix result
     float res0 = clamp(pct0, 0.0, 1.0);
-    vec3 col = mix(PLATINUM, PINK, res0);
+    vec3 col = mix(u_color_0, u_color_1, res0);
     gl_FragColor = vec4(col, 1.0);
 }
